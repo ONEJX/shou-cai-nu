@@ -1,16 +1,13 @@
 <template>
-    <div>
+    <Layout>
         labels
-        <Nav/>
-    </div>
+    </Layout>
 </template>
 
 <script lang="ts">
+    import Layout from "@/components/Layout.vue";
     export default {
         name: "Labels",
+        components: {Layout},
     }
 </script>
-
-<style scoped lang="scss">
-
-</style>
