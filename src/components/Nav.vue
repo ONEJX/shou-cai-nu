@@ -27,6 +27,8 @@
     .nav{
         box-shadow: 0 0 3px rgba(0,0,0,0.25);
         display: flex;
+        height: 48px;
+        font-size: 14px;
         > .item{
             flex:1;
             display: flex;
@@ -36,7 +38,7 @@
             align-items: center;
         }
         > .item.selected{
-            color:red;
+            color:limegreen;
         }
     }
 </style>

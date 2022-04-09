@@ -1,33 +1,39 @@
 <template>
     <div class="tags">
         <div class="new">
-            <button>新增标签</button>
+            <button @click="addTag">新增标签</button>
         </div>
         <ul class="current">
-            <li>衣</li>
-            <li>食</li>
-            <li>住</li>
-            <li>行</li>
-            <li>衣</li>
-            <li>食</li>
-            <li>住</li>
-            <li>行</li>
-            <li>衣</li>
-            <li>食</li>
-            <li>住</li>
-            <li>行</li>
-            <li>衣</li>
-            <li>食</li>
-            <li>住</li>
-            <li>行</li>
-
+            <li v-for="tags in dataSource" :key="tags" @click="toggle(tags)"
+            :class="{selected:selectedTage.indexOf(tags)>=0}">{{tags}}</li>
         </ul>
     </div>
 </template>
 
 <script lang="ts">
-    export default {
-        name: "Tags"
+    import  Vue from 'vue'
+    import {Component, Prop} from "vue-property-decorator";
+
+    @Component
+    export default class Tags extends Vue{
+        @Prop() readonly dataSource:string | undefined;
+        selectedTage:string[] = [];
+
+        toggle(tag:string){
+            const index = this.selectedTage.indexOf(tag)
+            if(!(index>=0)){
+                this.selectedTage.push(tag)
+            }else{
+                this.selectedTage.splice(index,1)
+            }
+            this.$emit('update:value',this.selectedTage)
+        }
+        addTag(){
+            const tag = window.prompt('请输入标签');
+            if(this.dataSource){
+                this.$emit('update:dataSource',[...this.dataSource,tag])
+            }
+        }
     }
 </script>
 
@@ -41,11 +47,12 @@
         >.current{
             display: flex;
             flex-wrap: wrap;
-            justify-content: space-around;
+            overflow: auto;
+            max-height: 80px;
             > li{
-                background: #d9d9d9;
+                $bg:#d9d9d9;
+                background: $bg;
                 text-align: center;
-                width: 20%;
                 $h:24px;
                 height:$h;
                 line-height:$h;
@@ -53,6 +60,10 @@
                 padding: 0 16px;
                 margin-right: 12px;
                 margin-bottom: 12px;
+                &.selected{
+                    background: darken($bg,50%);
+                    color:white;
+                }
             }
         }
         >.new{
