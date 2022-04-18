@@ -18,11 +18,8 @@
 <script lang="ts">
     import Vue from 'vue';
     import {Component} from 'vue-property-decorator'
-    import {tagListModel} from "@/models/tagListModel";
     import Notes from "@/components/Money/Notes.vue";
     import Button from "@/components/Button.vue";
-    
-    tagListModel.fetch()
     @Component({
         components: {Button, Notes}
     })
@@ -30,8 +27,7 @@
         tag?:{id:string,name:string} = undefined
         created(){
             const id = this.$route.params.id
-            const tags = tagListModel.data
-            const tag = tags.filter(t=>t.id===id)[0]
+            const tag = window.findTag(id)
             if(tag){
                this.tag = tag
             }else{
@@ -40,14 +36,13 @@
         }
         update(value:string){
             if(this.tag){
-                tagListModel.update(this.tag.id,value)
+                window.updateTag(this.tag.id,value)
             }
         }
         remove(){
             console.log('进来了');
             if(this.tag){
-                const message = tagListModel.remove(this.tag.id)
-                if(message === 'success'){
+                if(window.removeTag(this.tag.id) === 'success'){
                    window.alert('删除成功！')
                     this.$router.replace('/labels')
                 }
