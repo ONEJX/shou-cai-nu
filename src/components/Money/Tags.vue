@@ -4,8 +4,8 @@
       <button @click="addTag">新增标签</button>
     </div>
     <ul class="current">
-      <li v-for="tags in dataSource" :key="tags.id" @click="toggle(tags)"
-          :class="{selected:selectedTage.indexOf(tags)>=0}">{{tags.name}}</li>
+      <li v-for="(tag,index) in tagList" :key="index" @click="toggle(tag)"
+          :class="{selected:selectedTag.indexOf(tag)>=0}">{{tag.name}}</li>
     </ul>
   </div>
 </template>
@@ -13,28 +13,35 @@
 <script lang="ts">
     import  Vue from 'vue'
     import {Component, Prop} from "vue-property-decorator";
+    import store from "@/store/index2";
 
-    @Component
+    @Component({
+      computed:{
+        tagList(){
+          return this.$store.state.tagList;
+        }
+      }
+    })
     export default class Tags extends Vue{
-        @Prop() readonly dataSource:string | undefined;
-        selectedTage:string[] = [];
-
+        selectedTag:string[] = [];
+        
+        created(){
+          this.$store.commit('fetchTags')
+        }
         toggle(tag:string){
-            const index = this.selectedTage.indexOf(tag)
+            const index = this.selectedTag.indexOf(tag)
             if(!(index>=0)){
-                this.selectedTage.push(tag)
+                this.selectedTag.push(tag)
             }else{
-                this.selectedTage.splice(index,1)
+                this.selectedTag.splice(index,1)
             }
-            this.$emit('update:value',this.selectedTage)
+            this.$emit('update:value',this.selectedTag)
         }
         addTag(){
-            const tag = window.prompt('请输入标签');
-            if(this.dataSource){
-                if(tag !== ''){
-                    this.$emit('update:dataSource',[...this.dataSource,tag])
+            const name = window.prompt('请输入标签');
+                if(name){
+                  this.$store.commit('createTag',name)
                 }
-            }
         }
     }
 </script>

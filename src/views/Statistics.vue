@@ -1,11 +1,14 @@
 <template>
     <Layout>
-        statistics
     </Layout>
 </template>
 
 <script lang="ts">
-    export default {
-        name: "Statistics"
+    import Vue from 'vue'
+    import {Component} from "vue-property-decorator";
+    @Component
+    export default class Types extends Vue {
     }
 </script>
+<style lang="scss" scoped>
+</style>

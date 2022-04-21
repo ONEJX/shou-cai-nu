@@ -20,29 +20,29 @@
     import {Component} from 'vue-property-decorator'
     import Notes from "@/components/Money/Notes.vue";
     import Button from "@/components/Button.vue";
+    import store from '@/store/index2';
     @Component({
         components: {Button, Notes}
     })
     export default class EditLabel extends Vue {
-        tag?:{id:string,name:string} = undefined
+        get tag(){
+          return this.$store.state.currentTag
+        }
         created(){
             const id = this.$route.params.id
-            const tag = window.findTag(id)
-            if(tag){
-               this.tag = tag
-            }else{
+            this.$store.commit('setCuttentTag',id)
+            if(!this.tag){
                 this.$router.replace('/404')
             }
         }
         update(value:string){
             if(this.tag){
-                window.updateTag(this.tag.id,value)
+                store.updateTag(this.tag.id,value)
             }
         }
         remove(){
-            console.log('进来了');
             if(this.tag){
-                if(window.removeTag(this.tag.id) === 'success'){
+                if(store.removeTag(this.tag.id) === 'success'){
                    window.alert('删除成功！')
                     this.$router.replace('/labels')
                 }
