@@ -12,21 +12,16 @@
 
 <script lang="ts">
     import  Vue from 'vue'
-    import {Component, Prop} from "vue-property-decorator";
-    import store from "@/store/index2";
+    import {Component,} from "vue-property-decorator";
 
-    @Component({
-      computed:{
-        tagList(){
-          return this.$store.state.tagList;
-        }
-      }
-    })
+    @Component
     export default class Tags extends Vue{
         selectedTag:string[] = [];
-        
         created(){
           this.$store.commit('fetchTags')
+        }
+        get tagList(){
+          return this.$store.state.tagList
         }
         toggle(tag:string){
             const index = this.selectedTag.indexOf(tag)
@@ -35,7 +30,8 @@
             }else{
                 this.selectedTag.splice(index,1)
             }
-            this.$emit('update:value',this.selectedTag)
+            const string = this.selectedTag.map(item=>{return item.name}).join(',')
+            this.$emit('update:value',string)
         }
         addTag(){
             const name = window.prompt('请输入标签');

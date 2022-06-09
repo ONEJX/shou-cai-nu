@@ -57,10 +57,10 @@
           this.output = '0'
       }
       ok(){
-          this.$emit('update:value',this.output)
-          this.$emit('submit',this.output)
+        const number = parseFloat(this.output)
+          this.$emit('update:value',number)
+          this.$emit('submit',number)
           this.clear()
-        console.log(this.$store.state.recordList)
       }
     }
 </script>
@@ -91,29 +91,29 @@
         }
         &.zero{
           width: 25*2%;
-          background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(222,222,222,1) 0%, rgba(201,201,201,1) 100%);;
+          background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(232,232,232,1) 0%, rgba(222,222,222,1) 100%);
         }
         $bg:#f2f2f2;
         &:nth-child(1){
           background: $bg;
         }
         &:nth-child(2),&:nth-child(5){
-          background: darken($bg,2%);
+          background: darken($bg,1%);
         }
         &:nth-child(3),&:nth-child(6),&:nth-child(9){
-          background: darken($bg,2*2%);
+          background: darken($bg,2*1%);
         }
         &:nth-child(4),&:nth-child(7),&:nth-child(10){
-          background: darken($bg,2*4%);
+          background: darken($bg,2*2%);
         }
         &:nth-child(8),&:nth-child(11){
-           background: darken($bg,2*8%);
+           background: darken($bg,2*4%);
          }
         &:nth-child(14){
-          background: darken($bg,2*4%);
+          background: darken($bg,2*6%);
         }
         &:nth-child(12){
-           background: darken($bg,2*2%);
+           background: darken($bg,2*8%);
          }
       }
     }

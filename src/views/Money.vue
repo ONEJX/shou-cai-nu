@@ -1,6 +1,6 @@
 <template>
   <Layout>
-    <Tags/>
+    <Tags :value.sync="record.tags"/>
     <Notes field-name="备注" placeholder="在这里输入备注" @update:value="onUpdateNotes"/>
     <Tabs :value.sync="record.type"/>
     <NumberPad :value.sync="record.amount" @submit="saveRecord"/>
