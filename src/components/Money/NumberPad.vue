@@ -5,21 +5,17 @@
       <button @click="inputContent">1</button>
       <button @click="inputContent">2</button>
       <button @click="inputContent">3</button>
-      <button >+</button>
       <button @click="remove">删除</button>
       <button @click="inputContent">4</button>
       <button @click="inputContent">5</button>
       <button @click="inputContent">6</button>
-      <button>-</button>
       <button @click="clear">清空</button>
       <button @click="inputContent">7</button>
       <button @click="inputContent">8</button>
       <button @click="inputContent">9</button>
-      <button>x</button>
       <button @click="ok" class="ok">ok</button>
       <button @click="inputContent" class="zero">0</button>
       <button @click="inputContent">.</button>
-      <button>%</button>
     </div>
   </div>
 </template>
@@ -64,6 +60,7 @@
           this.$emit('update:value',this.output)
           this.$emit('submit',this.output)
           this.clear()
+        console.log(this.$store.state.recordList)
       }
     }
 </script>
@@ -83,7 +80,7 @@
     .btns{
       @extend %clearFix;
       > button{
-        width:20%;
+        width:25%;
         height:64px;
         float: left;
         background: transparent;
@@ -93,33 +90,31 @@
           float: right;
         }
         &.zero{
-          width: 20*2%;
+          width: 25*2%;
+          background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(222,222,222,1) 0%, rgba(201,201,201,1) 100%);;
         }
         $bg:#f2f2f2;
         &:nth-child(1){
           background: $bg;
         }
-        &:nth-child(2),&:nth-child(6){
+        &:nth-child(2),&:nth-child(5){
           background: darken($bg,2%);
         }
-        &:nth-child(3),&:nth-child(7),&:nth-child(11){
+        &:nth-child(3),&:nth-child(6),&:nth-child(9){
           background: darken($bg,2*2%);
         }
-        &:nth-child(4),&:nth-child(8),&:nth-child(12){
+        &:nth-child(4),&:nth-child(7),&:nth-child(10){
           background: darken($bg,2*4%);
         }
-        &:nth-child(5),&:nth-child(9),&:nth-child(13),&:nth-child(16){
-          background: darken($bg,2*6%);
+        &:nth-child(8),&:nth-child(11){
+           background: darken($bg,2*8%);
+         }
+        &:nth-child(14){
+          background: darken($bg,2*4%);
         }
-        &:nth-child(10),&:nth-child(14),&:nth-child(17){
-          background: darken($bg,2*8%);
-        }
-        &:nth-child(15){
-          background: darken($bg,2*11%);
-        }
-        &:nth-child(18){
-          background: darken($bg,2*10%);
-        }
+        &:nth-child(12){
+           background: darken($bg,2*2%);
+         }
       }
     }
   }

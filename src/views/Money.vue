@@ -2,7 +2,7 @@
   <Layout>
     <Tags/>
     <Notes field-name="备注" placeholder="在这里输入备注" @update:value="onUpdateNotes"/>
-    <Types :value.sync="record.type"/>
+    <Tabs :value.sync="record.type"/>
     <NumberPad :value.sync="record.amount" @submit="saveRecord"/>
   </Layout>
 </template>
@@ -11,13 +11,13 @@
     import Vue from 'vue';
     import Tags from "@/components/Money/Tags.vue";
     import Notes from "@/components/Money/Notes.vue";
-    import Types from "@/components/Money/Types.vue";
+    import Tabs from "@/components/Tabs.vue";
     import NumberPad from "@/components/Money/NumberPad.vue";
     import {Component} from "vue-property-decorator";
     
     
     @Component({
-      components: {NumberPad, Types, Notes, Tags}
+      components: {Tabs, NumberPad, Notes, Tags}
     })
     export default class Money extends  Vue{
         get recordList(){

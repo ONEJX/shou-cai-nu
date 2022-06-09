@@ -37,15 +37,12 @@
         }
         update(value:string){
             if(this.tag){
-                store.updateTag(this.tag.id,value)
+                this.$store.commit('updateTag',{id:this.tag.id,name:value})
             }
         }
         remove(){
             if(this.tag){
-                if(store.removeTag(this.tag.id) === 'success'){
-                   window.alert('删除成功！')
-                    this.$router.replace('/labels')
-                }
+                this.$store.commit('removeTag',this.tag.id)
             }
         }
     }
