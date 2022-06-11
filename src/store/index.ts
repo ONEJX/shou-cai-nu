@@ -3,6 +3,7 @@ import Vuex from 'vuex'
 import clone from "@/lib/clone";
 import createId from "@/lib/createId";
 import router from "@/router";
+import tiemtZone from "@/lib/time";
 
 Vue.use(Vuex)
 
@@ -18,13 +19,15 @@ const store =  new Vuex.Store({
     },
     createRecord(state,record){
       const newRecord:RecordItem = clone(record)
-      newRecord.createAt = new Date().toISOString()
+      const now = new Date().toISOString()
+      console.log(now);
+      newRecord.createAt = tiemtZone(new Date().toISOString())
+      console.log(newRecord.createAt);
       state.recordList.push(newRecord)
       store.commit('saveRecords')
     },
     saveRecords(state){
       window.localStorage.setItem('recordList',JSON.stringify(state.recordList))
-    
     },
   
     fetchTags(state){

@@ -26,7 +26,7 @@
 
     @Component
     export default class NumberPad extends Vue {
-      @Prop() readonly value!:number
+      @Prop(Number) readonly value!:number
       output = this.value.toString()
       
       inputContent(e:MouseEvent){
@@ -57,7 +57,7 @@
           this.output = '0'
       }
       ok(){
-        const number = parseFloat(this.output)
+          const number = parseFloat(this.output)
           this.$emit('update:value',number)
           this.$emit('submit',number)
           this.clear()

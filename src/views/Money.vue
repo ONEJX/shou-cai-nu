@@ -35,5 +35,12 @@
         saveRecord(){
             this.$store.commit('createRecord',this.record)
         }
+        mounted(){
+          console.log('挂载了')
+          const Layout = <HTMLElement>document.querySelector('.layout-wrapper')
+          const body = <HTMLElement>document.querySelector('body')
+          console.log(body.clientHeight);
+          Layout.style.height = body.clientHeight + 'px'
+        }
     }
 </script>

@@ -15,3 +15,12 @@
     <!-- built files will be auto injected -->
   </body>
 </html>
+<script >
+  window.onload = function () {
+  	console.log('加载完成')
+    const Layout = document.querySelector('.layout-wrapper')
+    const body = document.querySelector('body')
+	  console.log(body.clientHeight);
+	  Layout.style.height = body.clientHeight + 'px'
+  }
+</script>
