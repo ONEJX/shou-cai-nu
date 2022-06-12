@@ -1,8 +1,8 @@
-import store from "@/store/index2";
+import tagStore from "@/store/tagStore";
 
 let id:number = JSON.parse(window.localStorage.getItem('_MaxId') || '0') || 0
 function createId() {
-  if(store.findTag(id.toString()) || store.findTag(id.toString())===undefined){
+  if(tagStore.findTag(id.toString()) || tagStore.findTag(id.toString())===undefined){
     id+=1
   }
   window.localStorage.setItem('_MaxId',JSON.stringify(id))

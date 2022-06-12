@@ -20,7 +20,6 @@
     import {Component} from 'vue-property-decorator'
     import Notes from "@/components/Money/Notes.vue";
     import Button from "@/components/Button.vue";
-    import store from '@/store/index2';
     @Component({
         components: {Button, Notes}
     })

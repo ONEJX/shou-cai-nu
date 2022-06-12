@@ -4,6 +4,8 @@
     <Notes field-name="备注" placeholder="在这里输入备注" :value.sync="record.notes"/>
     <Tabs :value.sync="record.type"/>
     <NumberPad :value.sync="record.amount" @submit="saveRecord"/>
+    
+    <QRCode v-if="mask"/>
   </Layout>
 </template>
 
@@ -14,14 +16,17 @@
     import Tabs from "@/components/Tabs.vue";
     import NumberPad from "@/components/Money/NumberPad.vue";
     import {Component} from "vue-property-decorator";
-    
+    import QRCode from "@/components/QRCode.vue";
     
     @Component({
-      components: {Tabs, NumberPad, Notes, Tags}
+      components: {QRCode, Tabs, NumberPad, Notes, Tags}
     })
     export default class Money extends  Vue{
         get recordList(){
           return this.$store.state.recordList
+        }
+        get mask(){//遮罩层
+          return this.$store.state.mask
         }
         record:RecordItem = {
             tags:[],notes:'',type:'-',amount:0

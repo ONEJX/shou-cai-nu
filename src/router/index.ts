@@ -5,7 +5,7 @@ import Labels from "@/views/Labels.vue";
 import Statistics from "@/views/Statistics.vue";
 import NotFound from "@/components/NotFound.vue";
 import EditLabel from "@/views/EditLabel.vue";
-
+import QRCode from "@/components/QRCode.vue";
 Vue.use(VueRouter)
 
 const routes: Array<RouteConfig> = [
