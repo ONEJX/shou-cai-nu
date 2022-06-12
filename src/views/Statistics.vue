@@ -1,8 +1,7 @@
 <template>
   <Layout>
     <Tabs :value.sync="type" class-prefix="type"/>
-    <Tabs :data-source="arr" :value.sync="cycle" class-prefix="cycle"/>
-      <ol class="xxx">
+      <ol class="xxx" v-if="groupList.length>0">
         <li v-for="(group,index) in groupList" :key="index">
           <div class="title">
             <h3>{{beautiful(group.title)}}</h3>
@@ -16,6 +15,7 @@
           </ol>
         </li>
       </ol>
+    <div class="noResult" v-else>暂时没有账目可以显示哦</div>
   </Layout>
 </template>
 
@@ -25,22 +25,21 @@
   import Tabs from "@/components/Tabs.vue";
   import dayjs from "dayjs";
   import clone from '@/lib/clone';
-  console.log(dayjs())
   @Component({
     components: {Tabs}
   })
   export default class Statistics extends Vue {
     type = '-'
     cycle = 'day'//cycle 周期
-    arr = [{text:'按天',value:'day'},{text:'按周',value:'week'},{text:'按月',value:'month'}]
+    // arr = [{text:'按天',value:'day'},{text:'按周',value:'week'},{text:'按月',value:'month'}]
     get recordList(){
       return (this.$store.state as RootState).recordList
     }
     get groupList(){
       type Result = {title:string,total?:number,items:RecordItem[]}[]
       const {recordList} = this
-      if(recordList.length === 0) return []
       const newList = clone(recordList).filter(r=>r.type===this.type).sort((a,b)=>dayjs(b.createAt).valueOf() - dayjs(a.createAt).valueOf())
+      if(newList.length === 0) return []
       const result:Result = [{title:dayjs(newList[0].createAt).format('YYYY-MM-DD'),items:[newList[0]]}]
       for(let i = 1;i<newList.length;i++){
         const current = newList[i]
@@ -140,5 +139,9 @@
     background: #c4c4c4;
     width: 2px;
     height: 20px;
+  }
+  .noResult{
+    margin: auto;
+    transform: translateY(-100px);
   }
 </style>

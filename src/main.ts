@@ -12,6 +12,11 @@ Vue.component('Nav',Nav)
 Vue.component('Icon',Icon)
 Vue.component('Layout',Layout)
 
+window.onload =()=>{
+  setTimeout(()=>{
+    window.scrollTo(0,200)
+  },0)
+}
 new Vue({
   router,
   store,

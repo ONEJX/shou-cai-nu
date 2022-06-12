@@ -9,6 +9,8 @@ Vue.use(Vuex)
 
 const store =  new Vuex.Store({
   state: {
+    createRecordError:null,
+    createTagError:null,
     recordList:[],
     tagList:[],
     currentTag:undefined
@@ -20,18 +22,30 @@ const store =  new Vuex.Store({
     createRecord(state,record){
       const newRecord:RecordItem = clone(record)
       const now = new Date().toISOString()
-      console.log(now);
       newRecord.createAt = tiemtZone(new Date().toISOString())
       console.log(newRecord.createAt);
       state.recordList.push(newRecord)
       store.commit('saveRecords')
     },
     saveRecords(state){
-      window.localStorage.setItem('recordList',JSON.stringify(state.recordList))
+      state.createRecordError = null
+      try {
+        window.localStorage.setItem('recordList',JSON.stringify(state.recordList))
+      }catch (e) {
+        console.log(e)
+        state.createRecordError = e
+      }
     },
   
     fetchTags(state){
-      return state.tagList =  JSON.parse(window.localStorage.getItem('tagList') || '[]')
+      state.tagList =  JSON.parse(window.localStorage.getItem('tagList') || '[]')
+      if(!state.tagList || state.tagList.length===0){
+        store.commit('createTag','吃饭')
+        store.commit('createTag','住房')
+        store.commit('createTag','娱乐')
+        store.commit('createTag','出行')
+      }
+      return state.tagList
     },
     setCuttentTag(state,id:string){
       state.currentTag =  state.tagList.filter(t=>t.id===id)[0]

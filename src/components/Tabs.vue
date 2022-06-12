@@ -1,6 +1,6 @@
 <template>
   <ul class="tabs">
-    <li v-for="item in dataSource" :key="item.value" @click="select(item)"
+    <li v-for="item in dataSource" :key="item.value" @click.passive="select(item)"
         class="tabs-item"
         :class="{selected:value===item.value,[classPrefix+'-tabs-item']:classPrefix}">{{item.text}}</li>
   </ul>

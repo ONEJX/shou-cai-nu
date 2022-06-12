@@ -1,7 +1,7 @@
 <template>
   <Layout>
     <Tags :value.sync="record.tags"/>
-    <Notes field-name="备注" placeholder="在这里输入备注" @update:value="onUpdateNotes"/>
+    <Notes field-name="备注" placeholder="在这里输入备注" :value.sync="record.notes"/>
     <Tabs :value.sync="record.type"/>
     <NumberPad :value.sync="record.amount" @submit="saveRecord"/>
   </Layout>
@@ -29,17 +29,16 @@
         created(){
           this.$store.commit('fetchRecords')
         }
-        onUpdateNotes(value:string){
-            this.record.notes = value
+        saveRecord() {
+          this.$store.commit('createRecord', this.record)
+          if (this.$store.state.createRecordError === null) {
+            window.alert('已保存')
+            this.record.notes = ''
+          }
         }
-        saveRecord(){
-            this.$store.commit('createRecord',this.record)
-        }
-        mounted(){
-          console.log('挂载了')
+        mounted(){ //修复移动端软键盘带来的影响
           const Layout = <HTMLElement>document.querySelector('.layout-wrapper')
           const body = <HTMLElement>document.querySelector('body')
-          console.log(body.clientHeight);
           Layout.style.height = body.clientHeight + 'px'
         }
     }
