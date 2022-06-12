@@ -23,7 +23,6 @@ const store =  new Vuex.Store({
       const newRecord:RecordItem = clone(record)
       const now = new Date().toISOString()
       newRecord.createAt = tiemtZone(new Date().toISOString())
-      console.log(newRecord.createAt);
       state.recordList.push(newRecord)
       store.commit('saveRecords')
     },
@@ -32,7 +31,6 @@ const store =  new Vuex.Store({
       try {
         window.localStorage.setItem('recordList',JSON.stringify(state.recordList))
       }catch (e) {
-        console.log(e)
         state.createRecordError = e
       }
     },

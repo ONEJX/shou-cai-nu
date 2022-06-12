@@ -16,14 +16,14 @@
 
     @Component
     export default class Tags extends Vue{
-        selectedTag:string[] = [];
+        selectedTag:Tag[] = [];
         created(){
           this.$store.commit('fetchTags')
         }
         get tagList(){
           return this.$store.state.tagList
         }
-        toggle(tag:string){
+        toggle(tag:Tag){
             const index = this.selectedTag.indexOf(tag)
             if(!(index>=0)){
                 this.selectedTag.push(tag)
