@@ -17,6 +17,7 @@
     import NumberPad from "@/components/Money/NumberPad.vue";
     import {Component} from "vue-property-decorator";
     import QRCode from "@/components/QRCode.vue";
+    import store from "@/store";
     
     @Component({
       components: {QRCode, Tabs, NumberPad, Notes, Tags}
@@ -32,6 +33,11 @@
             tags:[],notes:'',type:'-',amount:0
         }
         created(){
+          if(document.documentElement.clientWidth > 500){
+            window.alert('为提升用户体验 请用手机打开')
+            store.state.mask = true
+            return
+          }
           this.$store.commit('fetchRecords')
         }
         saveRecord() {
