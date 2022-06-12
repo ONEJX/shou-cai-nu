@@ -1,6 +1,6 @@
 <template>
   <div class="xxx">
-    <div class="mask">
+    <div class="mask" @click="close">
     </div>
     <div class="img">
       <img src="@/assets/icons/守财奴.png" alt="手机扫描开始体验">
@@ -10,7 +10,12 @@
 
 <script lang="js">
 	export default {
-		name: 'QRCode'
+		name: 'QRCode',
+    methods:{
+	    close(){
+	    	this.$store.state.mask = false
+      }
+    }
 	}
 </script>
 

@@ -33,11 +33,6 @@
             tags:[],notes:'',type:'-',amount:0
         }
         created(){
-          if(document.documentElement.clientWidth > 500){
-            window.alert('为提升用户体验 请用手机打开')
-            store.state.mask = true
-            return
-          }
           this.$store.commit('fetchRecords')
         }
         saveRecord() {
@@ -48,6 +43,11 @@
           }
         }
         mounted(){ //修复移动端软键盘带来的影响
+          if(document.documentElement.clientWidth > 500 && store.state.mask){
+            window.alert('为提升用户体验 请用手机打开')
+            store.state.mask = true
+            return
+          }
           const Layout = <HTMLElement>document.querySelector('.layout-wrapper')
           const body = <HTMLElement>document.querySelector('body')
           Layout.style.height = body.clientHeight + 'px'
