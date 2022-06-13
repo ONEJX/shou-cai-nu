@@ -5,7 +5,7 @@
     <Tabs :value.sync="record.type"/>
     <NumberPad :value.sync="record.amount" @submit="saveRecord"/>
     
-    <QRCode v-if="mask"/>
+    <QRCode v-if="mask===0"/>
   </Layout>
 </template>
 
@@ -43,10 +43,13 @@
           }
         }
         mounted(){ //修复移动端软键盘带来的影响
-          if(document.documentElement.clientWidth > 500 && store.state.mask){
-            window.alert('为提升用户体验 请用手机打开')
-            store.state.mask = true
+          if(document.documentElement.clientWidth > 500){
+            if(store.state.mask === 0){
+              window.alert('为提升用户体验 请用手机打开')
+            }
             return
+          }else{
+            this.$store.state.mask=1
           }
           const Layout = <HTMLElement>document.querySelector('.layout-wrapper')
           const body = <HTMLElement>document.querySelector('body')

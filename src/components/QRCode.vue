@@ -13,7 +13,7 @@
 		name: 'QRCode',
     methods:{
 	    close(){
-	    	this.$store.state.mask = false
+	    	this.$store.state.mask=1
       }
     }
 	}

@@ -4,7 +4,7 @@ type RootState = {
     createTagError?:Error | null,
     tagList:Tag[],
     currentTag?:Tag
-    mask:boolean
+    mask:number
 }
 type RecordItem = {
     tags:Tag[]

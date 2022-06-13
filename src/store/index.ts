@@ -14,7 +14,7 @@ const store =  new Vuex.Store({
     recordList:[],
     tagList:[],
     currentTag:undefined,
-    mask:true//状态码，false表示手机使用，true表示电脑使用 出现遮罩层
+    mask:0//状态码，0表示电脑使用，不是0表示手机使用或者已经出现过一次遮罩层
   } as RootState,
   mutations: {
     fetchRecords(state){
